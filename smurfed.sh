@@ -25,18 +25,20 @@ preparation() {
 ask-llm() {
 	file="$1"
 	cat "$file"
-	cat "$file" | ./ask-llm.py >> answer_$file
-	sleep 3
+	cat "$file" | ./../ask-llm.py >> ../answer_"$file"
+	sleep 1
 }
 
 afficher_reponse() {
-	cat answer_$file
+	file="$1"
+	cat ../answer_"$file"
 }
 
 bulk_generation() {
-	for file in descriptions/*.txt ; do
-		ask-llm $file
-		afficher_reponse $file
+	cd descriptions
+	for file in *.txt ; do
+		ask-llm "$file"
+		afficher_reponse "$file"
 	done
 }
 
